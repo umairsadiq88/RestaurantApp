@@ -1,24 +1,43 @@
-import React from 'react';
+import React, { useState } from "react";
 import "./style.css";
+import Menu from "./menuApi.js";
+import MenuCard from "./MenuCard";
+import Navbar from "./Navbar";
 
-const Restaurant = () => {
-    return (
-        <>
-            <div className="card-container">
-                <div className='card'>
-                    <div className='card-body'>
-                        <span className='card-number card-circle subtle'>1</span>
-                        <span className='card-author subtle'>Breakfast</span>
-                        <h2 className='card-title'>Maggie</h2>
-                        <span className='card-description subtle'> Lorem   </span>
-                        <div className='card-read'>Read</div>
-                    </div>
-                    {/* <img src={image} alt='images' className='ccard-media' /> */}
-                    <span className='card-tag subtle'> Order Now</span>
-                </div>
-            </div>
-        </>
-    )
-}
+const uniqueList = [
+  ...new Set(
+    Menu.map((curElem) => {
+      return curElem.category;
+    })
+  ),
+  "All",
+];
 
-export default Restaurant;
+console.log(uniqueList);
+
+const Resturant = () => {
+  const [menuData, setMenuData] = useState(Menu);
+  const [menuList, setMenuList] = useState(uniqueList);
+
+  const filterItem = (category) => {
+    if (category === "All") {
+      setMenuData(Menu);
+      return;
+    }
+
+    const updatedList = Menu.filter((curElem) => {
+      return curElem.category === category;
+    });
+
+    setMenuData(updatedList);
+  };
+
+  return (
+    <>
+      <Navbar filterItem={filterItem} menuList={menuList} />
+      <MenuCard menuData={menuData} />
+    </>
+  );
+};
+
+export default Resturant;
