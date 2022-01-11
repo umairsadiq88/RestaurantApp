@@ -4,16 +4,14 @@ import './App.css';
 // import Effect from "./components/Hooks/Effect"
 import Reducer from "./components/Hooks/Reducer"
 
-
-
 function App() {
   return (
     <>
-      {/* <Restaurant /> */}
+          {/* <Restaurant /> */}
       {/* <State /> */}
       {/* <Effect /> */}
       <Reducer />
-
+     
     </>
   );
 }
